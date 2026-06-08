@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sudhakar Gotte | UI/UX Designer & Front-End Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #faf9f6;
+      --surface:   #f2f0eb;
+      --border:    #e0ddd5;
+      --ink:       #1a1916;
+      --ink-2:     #4a4844;
+      --ink-3:     #9a9690;
+      --accent:    #1a4fd6;
+      --accent-bg: #eef2fd;
+      --accent-dk: #0e33a0;
+      --teal:      #0b6e5c;
+      --teal-bg:   #e4f4f0;
+      --amber:     #a05c08;
+      --amber-bg:  #fef3e2;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ── Navbar ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      background: rgba(250,249,246,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 0.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      z-index: 100;
+    }
+    .nav-inner {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink-2);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── Layout ── */
+    .page { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 140px 0 80px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: end;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-bg);
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-tagline {
+      font-size: 16px;
+      color: var(--ink-2);
+      max-width: 440px;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--ink);
+      color: var(--bg);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 22px;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent); }
+    .btn-outline {
+      background: transparent;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 22px;
+      border-radius: 30px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--ink); }
+
+    .hero-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-end;
+    }
+    .stat-pill {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 20px;
+      text-align: right;
+      min-width: 130px;
+    }
+    .stat-pill .num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .stat-pill .lbl {
+      font-size: 11px;
+      color: var(--ink-3);
+      margin-top: 2px;
+    }
+
+    /* ── Sections ── */
+    section { padding: 60px 0; }
+    section + section { border-top: 0.5px solid var(--border); }
+
+    .section-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 32px;
+    }
+    .section-eyebrow::after {
+      content: '';
+      flex: 1;
+      height: 0.5px;
+      background: var(--border);
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .section-body {
+      font-size: 15px;
+      color: var(--ink-2);
+      max-width: 560px;
+      line-height: 1.8;
+    }
+
+    /* ── About ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    .about-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .highlight-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      border: 0.5px solid var(--border);
+    }
+    .highlight-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+    .hi-blue { background: var(--accent-bg); color: var(--accent); }
+    .hi-teal { background: var(--teal-bg); color: var(--teal); }
+    .hi-amber { background: var(--amber-bg); color: var(--amber); }
+    .highlight-text .ht { font-size: 13px; font-weight: 500; color: var(--ink); }
+    .highlight-text .hs { font-size: 12px; color: var(--ink-3); }
+
+    /* ── Experience ── */
+    .exp-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 24px;
+      padding: 28px 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-meta { padding-top: 3px; }
+    .exp-date {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .exp-loc { font-size: 12px; color: var(--ink-3); }
+    .exp-title { font-size: 17px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+    .exp-company { font-size: 13px; color: var(--ink-3); margin-bottom: 14px; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .exp-bullets li {
+      font-size: 14px;
+      color: var(--ink-2);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.6;
+    }
+    .exp-bullets li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--ink-3);
+      font-size: 11px;
+      top: 3px;
+    }
+    .exp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .exp-tag {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 0.5px solid var(--border);
+      color: var(--ink-2);
+    }
+
+    /* ── Portfolio ── */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .port-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .port-card:hover { transform: translateY(-3px); }
+    .port-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .port-card h3 { font-size: 15px; font-weight: 500; color: var(--ink); }
+    .port-card p { font-size: 13px; color: var(--ink-2); line-height: 1.6; }
+    .port-card .port-link {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ── Process ── */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .process-step {
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      position: relative;
+    }
+    .process-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .process-step h4 { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+    .process-step p { font-size: 12px; color: var(--ink-3); line-height: 1.5; }
+
+    /* ── Skills ── */
+    .skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .skill-group {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+    }
+    .skill-group-title {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 14px;
+    }
+    .pills { display: flex; flex-wrap: wrap; gap: 7px; }
+    .pill {
+      font-size: 13px;
+      padding: 5px 13px;
+      border-radius: 20px;
+      border: 0.5px solid var(--border);
+      color: var(--ink-2);
+      background: var(--bg);
+    }
+    .pill.accent { background: var(--accent-bg); border-color: transparent; color: var(--accent-dk); }
+
+    /* ── Domains ── */
+    .domains { display: flex; gap: 12px; flex-wrap: wrap; }
+    .domain-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .domain-badge span { font-size: 18px; }
+
+    /* ── Education & Certs ── */
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .edu-row:last-child { border-bottom: none; }
+    .edu-degree { font-size: 15px; font-weight: 500; color: var(--ink); }
+    .edu-school { font-size: 13px; color: var(--ink-3); margin-top: 2px; }
+    .edu-year { font-size: 12px; color: var(--ink-3); }
+
+    .cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+    .cert-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .cert-icon { font-size: 20px; }
+
+    /* ── Contact ── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .contact-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px 22px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: var(--ink);
+      transition: border-color 0.2s;
+    }
+    .contact-card:hover { border-color: var(--accent); }
+    .contact-card-icon {
+      width: 40px; height: 40px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-bg);
+      color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .cc-label { font-size: 11px; color: var(--ink-3); margin-bottom: 2px; }
+    .cc-value { font-size: 14px; font-weight: 500; }
+
+    /* ── Resume Download ── */
+    .resume-box {
+      background: var(--ink);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .resume-box h3 { font-family: 'DM Serif Display', serif; font-size: 24px; font-weight: 400; color: var(--bg); }
+    .resume-box p { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+    .btn-dl {
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 12px 26px;
+      border-radius: 30px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .btn-dl:hover { background: var(--accent-bg); color: var(--accent); }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 0.5px solid var(--border);
+      padding: 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--ink-3);
+    }
+    footer a { color: var(--ink-3); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    /* ── Responsive ── */
+    @media (max-width: 680px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-stats { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+      .about-grid, .portfolio-grid, .process-grid, .skills-layout, .contact-grid, .cert-grid { grid-template-columns: 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 4px; }
+      .domains { flex-direction: column; }
+      .resume-box { flex-direction: column; }
+      .nav-links { display: none; }
+    }
+
+    /* ── Fade-in animation ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade { animation: fadeUp 0.6s ease both; }
+    .fade-1 { animation-delay: 0.05s; }
+    .fade-2 { animation-delay: 0.15s; }
+    .fade-3 { animation-delay: 0.25s; }
+    .fade-4 { animation-delay: 0.35s; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-logo" href="#">Sudhakar G</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#resume">Resume</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="page">
+    <div class="hero">
+      <div>
+        <div class="hero-eyebrow fade fade-1">&#9679; Available for opportunities</div>
+        <h1 class="fade fade-2">UI/UX Designer<br>&amp; <em>Front-End</em><br>Developer</h1>
+        <p class="hero-tagline fade fade-3">
+          9+ years designing and engineering healthcare, insurance,
+          and enterprise applications that balance usability with
+          production-grade code.
+        </p>
+        <div class="hero-actions fade fade-4">
+          <a href="#portfolio" class="btn-primary">View Portfolio</a>
+          <a href="#contact" class="btn-outline">Get in Touch</a>
+        </div>
+      </div>
+      <div class="hero-stats fade fade-3">
+        <div class="stat-pill">
+          <div class="num">9+</div>
+          <div class="lbl">Years experience</div>
+        </div>
+        <div class="stat-pill">
+          <div class="num">3</div>
+          <div class="lbl">Domain specialties</div>
+        </div>
+        <div class="stat-pill">
+          <div class="num">8+</div>
+          <div class="lbl">Tools & frameworks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <div class="page">
+    <section id="about">
+      <div class="section-eyebrow">About me</div>
+      <div class="about-grid">
+        <div>
+          <h2 class="section-title">Designer who can code.<br>Developer who thinks UX.</h2>
+          <p class="section-body">
+            I'm Sudhakar Gotte — a UI/UX Designer and Front-End Developer with over
+            nine years of experience crafting user-centered digital products for
+            healthcare, insurance, and enterprise platforms.
+          </p>
+          <p class="section-body" style="margin-top:14px">
+            I bridge the gap between design and engineering: fluent in Figma and
+            Adobe XD for high-fidelity prototyping, and equally comfortable
+            translating those designs into production-ready Angular and React
+            applications. My work is grounded in user research, accessibility
+            standards, and design systems thinking.
+          </p>
+        </div>
+        <div class="about-highlights">
+          <div class="highlight-item">
+            <div class="highlight-icon hi-blue">🎨</div>
+            <div class="highlight-text">
+              <div class="ht">Human-centred design</div>
+              <div class="hs">Research → wireframes → prototype → test</div>
+            </div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon hi-teal">💻</div>
+            <div class="highlight-text">
+              <div class="ht">Production-grade front-end</div>
+              <div class="hs">Angular, React, TypeScript, Bootstrap</div>
+            </div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon hi-amber">🏥</div>
+            <div class="highlight-text">
+              <div class="ht">Complex domain expertise</div>
+              <div class="hs">Healthcare · Insurance · Enterprise</div>
+            </div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon hi-blue">♿</div>
+            <div class="highlight-text">
+              <div class="ht">Accessibility-first</div>
+              <div class="hs">WCAG 2.1 AA compliance across all products</div>
+            </div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon hi-teal">🧩</div>
+            <div class="highlight-text">
+              <div class="ht">Design systems</div>
+              <div class="hs">Reusable component libraries at scale</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Experience -->
+  <div class="page">
+    <section id="experience">
+      <div class="section-eyebrow">Work experience</div>
+
+      <!-- FHPL -->
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Sept 2022 – Present</div>
+          <div class="exp-loc">Senior Level · 3 yrs</div>
+        </div>
+        <div>
+          <div class="exp-title">Sr. UI/UX Developer</div>
+          <div class="exp-company">Family Health Plan Insurance TPA Limited (FHPL), Hyderabad</div>
+          <ul class="exp-bullets">
+            <li>Designed and developed responsive, accessible, and user-friendly web and mobile applications using Figma, Angular, React, HTML5, CSS3, Bootstrap, and JavaScript.</li>
+            <li>Created wireframes, user flows, prototypes, and high-fidelity UI designs for enterprise products — FHPL, FHPLUS, Mcare, Spectra, and Webshare — ensuring seamless front-end implementation.</li>
+            <li>Developed reusable UI components, scalable design systems, and responsive layouts to improve usability, navigation, performance, and visual consistency across applications.</li>
+            <li>Collaborated closely with product managers, developers, and QA teams in Agile environments to deliver intuitive user experiences and optimise application functionality.</li>
+            <li>Maintained Figma UI Kits and translated UI/UX designs into interactive, cross-browser compatible front-end solutions using modern web technologies.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Figma</span>
+            <span class="exp-tag">Angular</span>
+            <span class="exp-tag">React</span>
+            <span class="exp-tag">HTML5 / CSS3</span>
+            <span class="exp-tag">Bootstrap</span>
+            <span class="exp-tag">JavaScript</span>
+            <span class="exp-tag">Design System</span>
+            <span class="exp-tag">Agile</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARE Hospitals -->
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Jun 2020 – Sept 2022</div>
+          <div class="exp-loc">Mid Level · 2 yrs 3 mos</div>
+        </div>
+        <div>
+          <div class="exp-title">Web Designer</div>
+          <div class="exp-company">Quality Care India Limited (CARE Hospitals), Hyderabad</div>
+          <ul class="exp-bullets">
+            <li>Designed and managed end-to-end healthcare websites and patient portals for Quality Care Hospitals using Figma, WordPress, HTML5, CSS3, Bootstrap, and JavaScript.</li>
+            <li>Created responsive UI/UX designs, wireframes, prototypes, and reusable components to improve usability, accessibility, and patient engagement.</li>
+            <li>Handled daily website updates including doctor profiles, patient testimonials, blogs, articles, media content, and healthcare campaign creatives via the WordPress dashboard.</li>
+            <li>Optimised website speed, responsiveness, SEO, and performance using GTmetrix, Google PageSpeed Insights, and Google Analytics 4 (GA4) for traffic monitoring and user experience enhancement.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Figma</span>
+            <span class="exp-tag">WordPress</span>
+            <span class="exp-tag">HTML5 / CSS3</span>
+            <span class="exp-tag">Bootstrap</span>
+            <span class="exp-tag">JavaScript</span>
+            <span class="exp-tag">GA4</span>
+            <span class="exp-tag">SEO</span>
+            <span class="exp-tag">GTmetrix</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kamineni / Edge -->
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Sept 2018 – Jun 2020</div>
+          <div class="exp-loc">Mid Level · 1 yr 9 mos</div>
+        </div>
+        <div>
+          <div class="exp-title">Web Designer</div>
+          <div class="exp-company">Edge Advertising Pvt. Ltd. (Kamineni Group), Hyderabad</div>
+          <ul class="exp-bullets">
+            <li>Led UI/UX design and development for 25+ Kamineni Group websites across healthcare, education, diagnostics, and enterprise platforms — including CARE Hospitals, Kamineni Hospitals, KAMSRC, Kamineni Fertility Center, and Credence Diagnostic Centre.</li>
+            <li>Designed and developed responsive, brand-focused websites and landing pages using WordPress, Bootstrap, jQuery, HTML5, CSS3, and JavaScript with scalable UI solutions.</li>
+            <li>Managed end-to-end website operations including CMS integration, hosting, domain management, maintenance, troubleshooting, and performance monitoring.</li>
+            <li>Handled daily website updates, content management, and responsive enhancements to ensure smooth functionality and consistent user experience across all platforms.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">WordPress</span>
+            <span class="exp-tag">Bootstrap</span>
+            <span class="exp-tag">jQuery</span>
+            <span class="exp-tag">HTML5 / CSS3</span>
+            <span class="exp-tag">JavaScript</span>
+            <span class="exp-tag">CMS</span>
+            <span class="exp-tag">25+ websites</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ody Digital -->
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">May 2017 – Sept 2018</div>
+          <div class="exp-loc">Junior Level · 1 yr 4 mos</div>
+        </div>
+        <div>
+          <div class="exp-title">Web Designer</div>
+          <div class="exp-company">Ody Digital Marketing Services, Hyderabad</div>
+          <ul class="exp-bullets">
+            <li>Designed websites, microsites, landing pages, and digital creatives for education, healthcare, and retail clients.</li>
+            <li>Created engaging UI layouts, banners, and marketing assets aligned with brand identity and target audience needs.</li>
+            <li>Ensured mobile-first, cross-browser compatible designs with improved accessibility and usability.</li>
+            <li>Collaborated with SEO and content teams to enhance user engagement and digital campaign performance.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">HTML5 / CSS3</span>
+            <span class="exp-tag">JavaScript</span>
+            <span class="exp-tag">UI Design</span>
+            <span class="exp-tag">Landing Pages</span>
+            <span class="exp-tag">SEO</span>
+            <span class="exp-tag">Digital Creatives</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- Portfolio -->
+  <div class="page">
+    <section id="portfolio">
+      <div class="section-eyebrow">Featured case studies</div>
+      <div class="portfolio-grid">
+        <a href="#" class="port-card">
+          <div class="port-card-icon" style="background:var(--teal-bg);color:var(--teal)">🏥</div>
+          <h3>Healthcare Portal</h3>
+          <p>Doctor search, appointment booking, and patient dashboard — end-to-end UX and Angular implementation.</p>
+          <div class="port-link">View case study →</div>
+        </a>
+        <a href="#" class="port-card">
+          <div class="port-card-icon" style="background:var(--accent-bg);color:var(--accent)">🛡️</div>
+          <h3>Insurance Portal</h3>
+          <p>Claims management, policy tracking, and multi-step customer journeys aligned to compliance requirements.</p>
+          <div class="port-link">View case study →</div>
+        </a>
+        <a href="#" class="port-card">
+          <div class="port-card-icon" style="background:var(--amber-bg);color:var(--amber)">🧩</div>
+          <h3>Design System</h3>
+          <p>Reusable component library, accessibility standards, design tokens, and UI guidelines at enterprise scale.</p>
+          <div class="port-link">View details →</div>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <!-- Design Process -->
+  <div class="page">
+    <section id="process">
+      <div class="section-eyebrow">Design process</div>
+      <div class="process-grid">
+        <div class="process-step">
+          <div class="process-num">01</div>
+          <h4>Research</h4>
+          <p>User interviews, heuristic evaluation, competitive analysis, and IA mapping.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">02</div>
+          <h4>Wireframes</h4>
+          <p>Low-fidelity sketches, information architecture, user flow diagrams.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">03</div>
+          <h4>Prototype</h4>
+          <p>High-fidelity Figma & Adobe XD prototypes with interactive flows for stakeholder testing.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">04</div>
+          <h4>Build</h4>
+          <p>Angular & React implementation with component library integration and QA collaboration.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Skills -->
+  <div class="page">
+    <section id="skills">
+      <div class="section-eyebrow">Skills & expertise</div>
+      <div class="skills-layout">
+        <div class="skill-group">
+          <div class="skill-group-title">Design & prototyping</div>
+          <div class="pills">
+            <span class="pill accent">Figma</span>
+            <span class="pill accent">Adobe XD</span>
+            <span class="pill">Photoshop</span>
+            <span class="pill">Illustrator</span>
+            <span class="pill">Wireframing</span>
+            <span class="pill">User Research</span>
+            <span class="pill">Usability Testing</span>
+            <span class="pill">Design Tokens</span>
+            <span class="pill">Interaction Design</span>
+            <span class="pill">Design Systems</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Front-end development</div>
+          <div class="pills">
+            <span class="pill accent">Angular</span>
+            <span class="pill accent">React</span>
+            <span class="pill">TypeScript</span>
+            <span class="pill">JavaScript</span>
+            <span class="pill">HTML5</span>
+            <span class="pill">CSS3 / SCSS</span>
+            <span class="pill">Bootstrap</span>
+            <span class="pill">WCAG 2.1 AA</span>
+            <span class="pill">REST APIs</span>
+            <span class="pill">Git</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:24px">
+        <div class="skill-group-title" style="margin-bottom:14px;font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-3)">Domain expertise</div>
+        <div class="domains">
+          <div class="domain-badge"><span>🏥</span> Healthcare</div>
+          <div class="domain-badge"><span>🛡️</span> Insurance</div>
+          <div class="domain-badge"><span>🏢</span> Enterprise applications</div>
+          <div class="domain-badge"><span>♿</span> Accessibility</div>
+          <div class="domain-badge"><span>⚡</span> Agile / Scrum</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Education & Certifications -->
+  <div class="page">
+    <section id="education">
+      <div class="section-eyebrow">Education & certifications</div>
+      <div>
+        <div class="edu-row">
+          <div>
+            <div class="edu-degree">Bachelor of Engineering / Technology</div>
+            <div class="edu-school">Computer Science or related discipline — Add your institution</div>
+          </div>
+          <div class="edu-year">Add year</div>
+        </div>
+      </div>
+      <div class="cert-grid">
+        <div class="cert-card">
+          <div class="cert-icon">📜</div>
+          <span>Google UX Design Certificate</span>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">📜</div>
+          <span>Interaction Design Foundation</span>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">📜</div>
+          <span>Add your certification here</span>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">📜</div>
+          <span>Add your certification here</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Resume Download -->
+  <div class="page">
+    <section id="resume">
+      <div class="section-eyebrow">Resume</div>
+      <div class="resume-box">
+        <div>
+          <h3>Download my latest resume</h3>
+          <p>PDF format · Updated 2026</p>
+        </div>
+        <a href="sudhakar_gotte.pdf" target="_blank" class="btn-dl">⬇ Download PDF</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- Contact -->
+  <div class="page">
+    <section id="contact">
+      <div class="section-eyebrow">Get in touch</div>
+      <h2 class="section-title" style="margin-bottom:28px">Let's work together</h2>
+      <div class="contact-grid">
+        <a href="mailto:sudhagotte6@gmail.com" class="contact-card">
+          <div class="contact-card-icon">✉️</div>
+          <div>
+            <div class="cc-label">Email</div>
+            <div class="cc-value">sudhagotte6@gmail.com</div>
+          </div>
+        </a>
+        <a href="tel:+919705314712" class="contact-card">
+          <div class="contact-card-icon">📞</div>
+          <div>
+            <div class="cc-label">Phone</div>
+            <div class="cc-value">+91 9705314712</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/sudhakargotte/" target="_blank" class="contact-card">
+          <div class="contact-card-icon">💼</div>
+          <div>
+            <div class="cc-label">LinkedIn</div>
+            <div class="cc-value">linkedin.com/in/sudhakargotte</div>
+          </div>
+        </a>
+        <a href="https://github.com/sudhagotte6-code" target="_blank" class="contact-card">
+          <div class="contact-card-icon">🐙</div>
+          <div>
+            <div class="cc-label">GitHub</div>
+            <div class="cc-value">github.com/sudhagotte6-code</div>
+          </div>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <div class="page">
+    <footer>
+      <span>© 2026 Sudhakar Gotte. All rights reserved.</span>
+      <div style="display:flex;gap:20px">
+        <a href="#about">About</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>
