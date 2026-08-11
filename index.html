@@ -328,6 +328,162 @@
       gap: 4px;
     }
 
+    /* ── Gallery ── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 32px;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      aspect-ratio: 4 / 3;
+      cursor: pointer;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+      padding: 20px 16px 16px;
+      color: white;
+      transition: background 0.3s ease;
+    }
+    .gallery-item:hover .gallery-overlay {
+      background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0));
+    }
+    .gallery-category {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: white;
+      padding: 3px 10px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+    .gallery-item h4 {
+      font-size: 14px;
+      font-weight: 500;
+      color: white;
+      margin: 0;
+    }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 200;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+    .lightbox-content {
+      position: relative;
+      width: 90%;
+      max-width: 1000px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      margin: auto;
+    }
+    .lightbox-image-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.05);
+      min-height: 400px;
+    }
+    .lightbox-image-wrapper img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 32px;
+      cursor: pointer;
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+    .lightbox-close:hover { color: var(--accent); }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .lightbox-nav:hover { background: rgba(255,255,255,0.2); }
+    .lightbox-prev { left: -60px; }
+    .lightbox-next { right: -60px; }
+    .lightbox-info {
+      padding: 20px 0;
+      text-align: left;
+      color: white;
+    }
+    .lightbox-info h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: white;
+    }
+    .lightbox-category {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 12px;
+    }
+
     /* ── Process ── */
     .process-grid {
       display: grid;
@@ -489,11 +645,14 @@
     @media (max-width: 680px) {
       .hero { grid-template-columns: 1fr; }
       .hero-stats { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
-      .about-grid, .portfolio-grid, .process-grid, .skills-layout, .contact-grid, .cert-grid { grid-template-columns: 1fr; }
+      .about-grid, .portfolio-grid, .gallery-grid, .process-grid, .skills-layout, .contact-grid, .cert-grid { grid-template-columns: 1fr; }
       .exp-item { grid-template-columns: 1fr; gap: 4px; }
       .domains { flex-direction: column; }
       .resume-box { flex-direction: column; }
       .nav-links { display: none; }
+      .lightbox-nav { width: 36px; height: 36px; font-size: 18px; }
+      .lightbox-prev { left: -48px; }
+      .lightbox-next { right: -48px; }
     }
 
     /* ── Fade-in animation ── */
@@ -518,6 +677,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#gallery">Gallery</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#resume">Resume</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -537,7 +697,7 @@
           production-grade code.
         </p>
         <div class="hero-actions fade fade-4">
-          <a href="#portfolio" class="btn-primary">View Portfolio</a>
+          <a href="#gallery" class="btn-primary">View Portfolio</a>
           <a href="#contact" class="btn-outline">Get in Touch</a>
         </div>
       </div>
@@ -764,6 +924,75 @@
     </section>
   </div>
 
+  <!-- Design Gallery -->
+  <div class="page">
+    <section id="gallery">
+      <div class="section-eyebrow">Design gallery</div>
+      <h2 class="section-title">Visual work</h2>
+      <div class="gallery-grid" id="galleryGrid">
+        <!-- Gallery items with placeholder images. Replace src with your actual image paths -->
+        <div class="gallery-item" data-title="FHPL Dashboard" data-category="Healthcare">
+          <img src="https://via.placeholder.com/400x300?text=FHPL+Dashboard" alt="FHPL Dashboard Design">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Healthcare</span>
+            <h4>FHPL Dashboard</h4>
+          </div>
+        </div>
+        <div class="gallery-item" data-title="Claims Portal UI" data-category="Insurance">
+          <img src="https://via.placeholder.com/400x300?text=Claims+Portal" alt="Insurance Claims Portal">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Insurance</span>
+            <h4>Claims Portal</h4>
+          </div>
+        </div>
+        <div class="gallery-item" data-title="Mobile App Design" data-category="Healthcare">
+          <img src="https://via.placeholder.com/400x300?text=Mobile+App" alt="Mobile Application">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Healthcare</span>
+            <h4>Mobile App</h4>
+          </div>
+        </div>
+        <div class="gallery-item" data-title="Design System Components" data-category="Design System">
+          <img src="https://via.placeholder.com/400x300?text=Design+System" alt="Design System Components">
+          <div class="gallery-overlay">
+            <span class="gallery-category">Design System</span>
+            <h4>Component Library</h4>
+          </div>
+        </div>
+        <div class="gallery-item" data-title="User Flow Diagram" data-category="UX">
+          <img src="https://via.placeholder.com/400x300?text=User+Flows" alt="User Flow Mapping">
+          <div class="gallery-overlay">
+            <span class="gallery-category">UX</span>
+            <h4>User Flows</h4>
+          </div>
+        </div>
+        <div class="gallery-item" data-title="Wireframe Sketches" data-category="UX">
+          <img src="https://via.placeholder.com/400x300?text=Wireframes" alt="Low-Fidelity Wireframes">
+          <div class="gallery-overlay">
+            <span class="gallery-category">UX</span>
+            <h4>Wireframes</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close">&times;</button>
+      <button class="lightbox-nav lightbox-prev">❮</button>
+      <div class="lightbox-image-wrapper">
+        <img id="lightboxImage" src="" alt="">
+      </div>
+      <button class="lightbox-nav lightbox-next">❯</button>
+      <div class="lightbox-info">
+        <h3 id="lightboxTitle"></h3>
+        <span id="lightboxCategory" class="lightbox-category"></span>
+      </div>
+    </div>
+  </div>
+
   <!-- Design Process -->
   <div class="page">
     <section id="process">
@@ -846,19 +1075,15 @@
   <!-- Education & Certifications -->
   <div class="page">
     <section id="education">
-      <div class="section-eyebrow">Education </div>
+      <div class="section-eyebrow">Education</div>
       <div>
         <div class="edu-row">
           <div>
-            <div class="edu-degree">Bachelor of  Technology</div>
-            <div class="edu-school">
-Information Technology - Lords Institute of
-Engineering and Technology (JNTUH),
-Hyderabad</div>
+            <div class="edu-degree">Bachelor of Technology</div>
+            <div class="edu-school">Information Technology - Lords Institute of Engineering and Technology (JNTUH), Hyderabad</div>
           </div>
         </div>
       </div>
-     
     </section>
   </div>
 
@@ -925,6 +1150,76 @@ Hyderabad</div>
       </div>
     </footer>
   </div>
+
+  <script>
+    // Gallery Lightbox functionality
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxCategory = document.getElementById('lightboxCategory');
+    const lightboxClose = document.querySelector('.lightbox-close');
+    const lightboxPrev = document.querySelector('.lightbox-prev');
+    const lightboxNext = document.querySelector('.lightbox-next');
+    
+    let currentIndex = 0;
+
+    // Open lightbox
+    galleryItems.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        currentIndex = index;
+        showLightbox();
+      });
+    });
+
+    function showLightbox() {
+      const item = galleryItems[currentIndex];
+      const img = item.querySelector('img');
+      const title = item.dataset.title;
+      const category = item.dataset.category;
+
+      lightboxImage.src = img.src;
+      lightboxImage.alt = img.alt;
+      lightboxTitle.textContent = title;
+      lightboxCategory.textContent = category;
+      
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % galleryItems.length;
+      showLightbox();
+    }
+
+    function prevImage() {
+      currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+      showLightbox();
+    }
+
+    // Event listeners
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxNext.addEventListener('click', nextImage);
+    lightboxPrev.addEventListener('click', prevImage);
+    
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.classList.contains('active')) {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') nextImage();
+        if (e.key === 'ArrowLeft') prevImage();
+      }
+    });
+  </script>
 
 </body>
 </html>
